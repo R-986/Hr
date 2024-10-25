@@ -29,18 +29,11 @@ jobs:
          run: |
            git clone https://${{ secrets.GIT_NAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.BOT_REPO }} hacker
        - name: running hacker-rj server
-         timeout-minutes: 350
+         timeout-minutes: 20
          continue-on-error: true
          run: |
            cd hacker
            docker build . -t hacker
            docker run hacker
-       - name: loop hacker-rj server
-         continue-on-error: true
-         run: |
-              git clone https://github.com/${GITHUB_REPOSITORY} loop
-              cd loop || exit 1
-              echo $(date -u +%T%P) >> loop.txt
-              git add loop.txt
-              git commit -m "Hacker-RJ : Loop $(date -u +%D-%T%P)"
-              git push -q https://${{ secrets.GIT_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:hacker-rj
+       
+         
